@@ -4,36 +4,42 @@ using namespace std;
 
 int precedence(char op)
 {
-    if (op == '+'|| op == '-')
-    return 1;
-    if (op == '*'|| op == '/' || op == '%')
-    return 2;
+    if (op == '+' || op == '-')
+        return 1;
+    if (op == '*' || op == '/' || op == '%')
+        return 2;
     if (op == '^')
-    return 3;
+        return 3;
 
     return 0;
 }
 
-bool isRightAssociative(char op){
+bool isRightAssociative(char op)
+{
     return (op == '^');
 }
 
-int main(){
+int main()
+{
     string Q, P;
     cout << "Enter the infix expression: ";
     cin >> Q;
 
-    stack<char>s;
+    stack<char> s;
 
-    for (int i= 0; i<Q.length(); i++){
+    for (int i = 0; i < Q.length(); i++)
+    {
         char ch = Q[i];
-        if (isalnum(ch)){
+        if (isalnum(ch))
+        {
             P += ch;
         }
-        else if (ch == '('){
+        else if (ch == '(')
+        {
             s.push(ch);
         }
-        else if (ch == ')'){
+        else if (ch == ')')
+        {
             while (!s.empty() && s.top() != '(')
             {
                 P += s.top();
@@ -42,19 +48,21 @@ int main(){
             if (!s.empty() && s.top() == '(')
                 s.pop();
         }
-        else{
-            while (!s.empty() && precedence(s.top()) >= precedence(ch) && !isRightAssociative(ch)){
+        else
+        {
+            while (!s.empty() && s.top() != '(' && (precedence(s.top()) > precedence(ch) || (precedence(s.top()) == precedence(ch) && !isRightAssociative(ch))))
+            {
                 P += s.top();
                 s.pop();
             }
             s.push(ch);
         }
     }
-    while (!s.empty()){
+    while (!s.empty())
+    {
         P += s.top();
         s.pop();
     }
     cout << "The postfix expression is: " << P << endl;
     return 0;
 }
-
