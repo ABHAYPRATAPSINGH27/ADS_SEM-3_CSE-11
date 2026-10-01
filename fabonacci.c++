@@ -1,4 +1,4 @@
-    // WAP to find  the nth Fibonacci number using recursion in C++.
+ // WAP to find  the nth Fibonacci number using recursion in C++.
 
 #include <iostream>
 using namespace std;
